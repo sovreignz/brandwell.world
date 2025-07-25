@@ -3,63 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-  <title>Brandwell</title>
-  <meta name="description" content="Brandwell: Launch sovereign, frictionless creative stacks in minutes." />
-  <meta name="author" content="Chase Premone" />
-
-  <!-- OpenGraph -->
-  <meta property="og:title" content="Brandwell" />
-  <meta property="og:description" content="The future of modular, sovereign, no-code web deployment." />
-  <meta property="og:image" content="https://brandwell.world/assets/images/og-image.png" />
-  <meta property="og:url" content="https://brandwell.world" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="/assets/images/favicon.ico" />
-
-  <!-- Styles (inline for now, or link external CSS) -->
+  <meta name="description" content="Your brand tagline here." />
+  <title>Brand Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background-color: #0a0a0a;
-      color: #f4f4f4;
-      font-family: 'Helvetica Neue', sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      padding: 2rem;
+    :root {
+      --bg: #f9f9f9;
+      --text: #222;
+      --accent: #0077ff;
+      --max-width: 1100px;
     }
-    h1 {
-      font-size: 3rem;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 0;
+      margin: 0;
+    }
+    header {
+      padding: 3rem 1rem;
+      text-align: center;
+      background: var(--accent);
+      color: white;
+    }
+    header h1 {
+      font-size: 2.5rem;
       margin-bottom: 1rem;
     }
-    p {
+    header p {
       font-size: 1.2rem;
-      color: #bbb;
       max-width: 600px;
+      margin: 0 auto;
     }
-    a {
+    section {
+      padding: 4rem 1rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    section p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
       margin-top: 2rem;
-      color: #fff;
-      background: #444;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      text-decoration: none;
     }
-    a:hover {
-      background: #666;
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .cta {
+      background: var(--accent);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 8px;
+      margin-top: 3rem;
+    }
+    .cta a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: white;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+    }
+    .cta a:hover {
+      background: #f0f0f0;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
-
 <body>
-  <h1>👑 Brandwell</h1>
-  <p>Welcome to the sovereign stack. This site is live and deployable. Customize the content, drop in assets, and ship at will.</p>
-  <a href="mailto:chase@brandwell.world">Contact Us</a>
+  <header>
+    <h1>Brand Name</h1>
+    <p>Your tagline or mission statement goes here.</p>
+  </header>
+
+  <section>
+    <h2>What We Offer</h2>
+    <p>Quick intro copy about your core service or value proposition.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Service One</h3>
+        <p>Brief description of service or product.</p>
+      </div>
+      <div class="card">
+        <h3>Service Two</h3>
+        <p>Brief description of service or product.</p>
+      </div>
+      <div class="card">
+        <h3>Service Three</h3>
+        <p>Brief description of service or product.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>About Us</h2>
+    <p>Short brand narrative or founder statement. Keep it personal and authentic.</p>
+  </section>
+
+  <section>
+    <h2>Case Studies / Highlights</h2>
+    <p>Feature a few success stories, project highlights, or testimonials.</p>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Work With Us?</h2>
+    <p>Call to action that drives conversions—book a call, buy now, sign up.</p>
+    <a href="mailto:contact@brand.com">Contact Us</a>
+  </section>
+
+  <footer>
+    <p>© 2025 Brand Name. All rights reserved.</p>
+  </footer>
 </body>
 </html>
