@@ -1,195 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brandwell – Build Something Legendary</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brandwell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #222222;
-      --accent: #8f4dcc;
-      --accent-dark: #6a37a3;
-      --accent-light: #c3a3e6;
-      --gradient: linear-gradient(135deg, #3a5de8, #8f4dcc);
-      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --bg-dark: #0a0a0a;
+      --bg-charcoal: #111111;
+      --accent-purple: #8f4dcc;
+      --accent-teal: #2ec4b6;
+      --text-light: #ffffff;
+      --text-gray: #cccccc;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(46, 196, 182, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font);
-      color: var(--text);
-      background-color: var(--bg);
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      scroll-behavior: smooth;
     }
 
-    header {
-      text-align: center;
-      padding: 5rem 2rem;
-      background: var(--gradient);
-      color: #fff;
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
     }
 
-    header h1 {
-      font-size: 3rem;
-      margin: 0;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    header p {
-      font-size: 1.25rem;
-      max-width: 600px;
-      margin: 1rem auto 0;
-    }
-
-    section {
-      padding: 4rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
-      text-align: center;
-      position: relative;
-    }
-
-    section h2::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 3px;
-      margin: 0.5rem auto 2rem;
-      background-color: var(--accent);
-      border-radius: 2px;
-    }
-
-    section p {
-      max-width: 800px;
-      margin: 0 auto 2rem;
-      text-align: center;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      color: var(--accent-dark);
-    }
-
-    .cta {
-      text-align: center;
-      background: var(--gradient);
-      color: #fff;
-      padding: 4rem 2rem;
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
       border-radius: 12px;
     }
 
-    .cta h2 {
-      color: #fff;
-      font-size: 2rem;
+    .glow-hover:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--accent-teal);
+      transition: all 0.3s ease;
     }
 
-    .cta p {
-      max-width: 600px;
-      margin: 1rem auto 2rem;
-      font-size: 1.2rem;
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 60px 20px;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
     }
 
-    .cta a {
-      display: inline-block;
-      background: #fff;
-      color: var(--accent-dark);
-      text-decoration: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: background 0.3s ease, color 0.3s ease;
+    .sidebar.active {
+      transform: translateX(0);
     }
 
-    .cta a:hover {
-      background: var(--accent-light);
-      color: #fff;
+    .sidebar a {
+      display: block;
+      padding: 15px 0;
+      font-size: 18px;
+      color: var(--text-light);
+      transition: color 0.3s;
     }
 
-    footer {
+    .sidebar a:hover {
+      color: var(--accent-teal);
+      text-decoration: underline;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      font-size: 30px;
+      color: white;
+      z-index: 1001;
+      cursor: pointer;
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      padding: 100px 5%;
+      scroll-margin-top: 80px;
+    }
+
+    .hero {
+      background: linear-gradient(to bottom, #0a0a0a, #111);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #666;
     }
 
-    footer p {
-      margin: 0;
+    .hero h1 {
+      font-size: 70px;
+      margin-bottom: 20px;
     }
+
+    .hero p {
+      font-size: 24px;
+      color: var(--text-gray);
+      margin-bottom: 30px;
+    }
+
+    .hero .cta {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .hero .cta:hover {
+      box-shadow: 0 0 20px var(--accent-teal);
+      transform: scale(1.05);
+    }
+
+    .section-title {
+      font-size: 40px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* Creations */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 30px;
+      font-size: 18px;
+    }
+
+    .tabs span {
+      cursor: pointer;
+      padding: 5px 10px;
+      position: relative;
+    }
+
+    .tabs .active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-teal);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      height: 250px;
+      background: var(--glass-bg);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    /* Playbook */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      padding: 30px;
+      text-align: center;
+    }
+
+    /* Method */
+    .manifesto {
+      padding: 100px 10%;
+      text-align: center;
+      font-size: 32px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .manifesto div {
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeInLine 1s forwards;
+    }
+
+    .manifesto div:nth-child(1) { animation-delay: 0.2s; }
+    .manifesto div:nth-child(2) { animation-delay: 0.6s; }
+    .manifesto div:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes fadeInLine {
+      to { opacity: 1; }
+    }
+
+    /* Voice */
+    .testimonials {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .testimonial {
+      width: 80%;
+      padding: 30px;
+      position: relative;
+    }
+
+    .quote::before {
+      content: "“";
+      font-size: 80px;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      color: #aaa;
+    }
+
+    .author {
+      margin-top: 20px;
+      color: var(--accent-teal);
+      font-weight: 600;
+    }
+
+    /* Connect */
+    .connect {
+      text-align: center;
+    }
+
+    .connect h2 {
+      font-size: 40px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      background: var(--glass-bg);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent-teal);
+    }
+
+    button.submit {
+      padding: 15px 30px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button.submit:hover {
+      box-shadow: 0 0 20px var(--accent-teal);
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-charcoal);
+      padding: 40px 5%;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+    }
+
+    footer a {
+      margin: 0 10px;
+      color: var(--text-light);
+    }
+
+    footer a:hover {
+      color: var(--accent-teal);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .back-to-top:hover {
+      box-shadow: 0 0 15px var(--accent-teal);
+    }
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>Brandwell</h1>
-    <p>We craft brands with precision, clarity, and timeless taste—transforming your ideas into identities that stand apart.</p>
-  </header>
 
-  <section>
-    <h2>What We Offer</h2>
-    <p>Brandwell is your creative operations partner—designing brands, systems, and stories that not only look sharp but also drive measurable growth.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>Brand Identity Design</h3>
-        <p>From logos to color systems, we develop visual frameworks that resonate with your audience and feel built to last.</p>
+  <!-- Hamburger Icon -->
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <!-- Sidebar Menu -->
+  <nav class="sidebar glass" id="sidebar">
+    <a href="#vision">Vision</a>
+    <a href="#creations">Creations</a>
+    <a href="#playbook">Playbook</a>
+    <a href="#method">Method</a>
+    <a href="#voice">Voice</a>
+    <a href="#connect">Connect</a>
+  </nav>
+
+  <!-- Hero / Vision -->
+  <section id="vision" class="hero">
+    <h1>Where brands evolve into legends.</h1>
+    <p>A blend of precision and creativity.</p>
+    <a href="#" class="cta glow-hover">Book a Discovery Call</a>
+    <p style="margin-top: 20px; font-size: 16px; color: #aaa;">Let’s build something timeless.</p>
+  </section>
+
+  <!-- Creations -->
+  <section id="creations">
+    <h2 class="section-title">Creations</h2>
+    <div class="tabs">
+      <span class="active">Brand Design</span>
+      <span>Video</span>
+      <span>Campaigns</span>
+      <span>Misc</span>
+    </div>
+    <div class="gallery">
+      <div class="card glass">Design 1</div>
+      <div class="card glass">Design 2</div>
+      <div class="card glass">Design 3</div>
+      <div class="card glass">Design 4</div>
+    </div>
+  </section>
+
+  <!-- Playbook -->
+  <section id="playbook">
+    <h2 class="section-title">Playbook</h2>
+    <div class="services">
+      <div class="service-card glass glow-hover">
+        <h3>Identity Design</h3>
+        <p>Visual identity systems that tell your story.</p>
       </div>
-      <div class="card">
+      <div class="service-card glass glow-hover">
         <h3>Content Systems</h3>
-        <p>We create scalable content pipelines—designed to automate and amplify your brand’s voice across platforms.</p>
+        <p>Strategic content frameworks for growth.</p>
       </div>
-      <div class="card">
+      <div class="service-card glass glow-hover">
         <h3>Strategic Positioning</h3>
-        <p>We help you define the narrative that makes your brand impossible to ignore—turning ideas into market-ready stories.</p>
+        <p>Clarity in a crowded world.</p>
       </div>
     </div>
   </section>
 
-  <section>
-    <h2>About Us</h2>
-    <p>Brandwell was founded on one principle: <em>clarity wins.</em> We merge design, strategy, and automation to help creators, founders, and companies build brands that cut through noise and create real connection.</p>
+  <!-- Method -->
+  <section id="method" class="manifesto">
+    <div>Clarity wins.</div>
+    <div>Obsession builds.</div>
+    <div>Taste defines.</div>
   </section>
 
-  <section>
-    <h2>Case Studies & Highlights</h2>
-    <p>We’ve helped visionary founders and businesses elevate their image and operations—from polished content campaigns to complete brand overhauls. <strong>Our results speak for themselves.</strong></p>
-    <p><em>Coming soon: Featured projects and client success stories.</em></p>
+  <!-- Voice -->
+  <section id="voice">
+    <h2 class="section-title">Voice</h2>
+    <div class="testimonials">
+      <div class="testimonial glass">
+        <p class="quote">This team transformed how we see our brand.</p>
+        <p class="author">— Alex Morgan, CEO</p>
+      </div>
+      <div class="testimonial glass">
+        <p class="quote">Precision, taste, and obsession—everything we needed.</p>
+        <p class="author">— Taylor Kim, Founder</p>
+      </div>
+    </div>
   </section>
 
-  <section class="cta">
-    <h2>Ready to Build Something Legendary?</h2>
-    <p>Book a discovery call today and let’s map out how we can scale your vision with precision and creativity.</p>
-    <a href="mailto:contact@brandwell.world">Contact Us</a>
+  <!-- Connect -->
+  <section id="connect" class="connect">
+    <h2>Great brands aren’t found—they’re forged. Ready to build yours?</h2>
+    <form>
+      <div class="form-group">
+        <input type="text" placeholder="Your Name" />
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Your Email" />
+      </div>
+      <div class="form-group">
+        <textarea placeholder="Your Message"></textarea>
+      </div>
+      <button type="submit" class="submit glow-hover">Send Message</button>
+    </form>
+    <br>
+    <a href="#" class="cta glow-hover">Book a Discovery Call</a>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Brandwell. All rights reserved.</p>
+    <div>
+      <a href="#vision">Vision</a> |
+      <a href="#creations">Creations</a> |
+      <a href="#playbook">Playbook</a> |
+      <a href="#method">Method</a> |
+      <a href="#voice">Voice</a> |
+      <a href="#connect">Connect</a>
+    </div>
+    <p>© 2025 Brandwell. All Rights Reserved.</p>
   </footer>
+
+  <!-- Back to Top -->
+  <div class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">↑</div>
+
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
